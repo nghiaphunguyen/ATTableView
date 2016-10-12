@@ -1,5 +1,5 @@
 Pod::Spec.new do |s|
-  s.name         = "ATTableView"
+  s.name         = "NATTableView"
   s.version      = "3.0.0"
   s.summary      = "A lazy way for smart developers to deal with UITableView."
 

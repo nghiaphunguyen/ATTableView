@@ -22,7 +22,7 @@
 import UIKit
 
 public protocol ATTableViewCellProtocol: NSObjectProtocol {
-    typealias ModelType
+    associatedtype ModelType
     
     // Optional, default is ClassName
     static func reuseIdentifier() -> String
