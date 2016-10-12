@@ -50,11 +50,7 @@ public extension ATTableViewCellProtocol {
     
     static func nibName() -> String? { return "\(self)" }
     
-    static func nib() -> UINib? {
-        guard let nibName = nibName() else { return nil }
-        
-        return UINib(nibName: nibName, bundle: nil)
-    }
+    static func nib() -> UINib? { return nil }
     
     static func pairCode() -> Int? { return nil }
     

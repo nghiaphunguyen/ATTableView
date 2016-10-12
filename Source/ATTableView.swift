@@ -23,10 +23,10 @@ import UIKit
 
 var UITableLoadingViewKey = "UITableLoadingViewKey"
 
-typealias Mapping = (heightBlock:((model: Any) -> CGFloat), configureCellBlock: (cell: UITableViewCell, model: Any) -> (), identifier: String, modelType: Any.Type)
+typealias Mapping = (heightBlock:((_ model: Any) -> CGFloat), configureCellBlock: (_ cell: UITableViewCell, _ model: Any) -> (), identifier: String, modelType: Any.Type)
 
 public class ATTableViewDelegateConfiguration {
-    public var scrollViewDidScroll: ((scrollView: UIScrollView) -> ())?
+    public var scrollViewDidScroll: ((_ scrollView: UIScrollView) -> ())?
 }
 
 public class ATTableView: UITableView {
@@ -34,7 +34,7 @@ public class ATTableView: UITableView {
     
     public var delegateConfiguration = ATTableViewDelegateConfiguration()
     
-    public var onDidSelectItem: ((item: Any) -> ())?
+    public var onDidSelectItem: ((_ item: Any) -> ())?
     
     // Abstract the way to implement LoadMore feature.
     // Under implementation.
@@ -42,7 +42,7 @@ public class ATTableView: UITableView {
     private var isLoadingMore = false
     public var onLoadMore: (() -> ())?
     
-    private var signalMonitorHandler: ((signal: ATSignal) -> ())?
+    private var signalMonitorHandler: ((_ signal: ATSignal) -> ())?
     
     public func loadDataCompletedWithItems(items: [Any]) {
         self.shouldLoadMore = (items.count == 0) ? false : true
@@ -60,7 +60,7 @@ public class ATTableView: UITableView {
     // Find registed cell type that accept model.
     private func mappingForModel(model: Any) -> Mapping? {
         for mapping in mappings {
-            if mapping.modelType == model.dynamicType {
+            if mapping.modelType == type(of: model) {
                 return mapping
             }
         }
@@ -214,7 +214,7 @@ public class ATTableView: UITableView {
         super.reloadData()
     }
     
-    public func startMonitorSignal(handler: (signal: ATSignal) -> ()) {
+    public func startMonitorSignal(handler: (_ signal: ATSignal) -> ()) {
         self.signalMonitorHandler = handler
     }
     

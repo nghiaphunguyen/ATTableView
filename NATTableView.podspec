@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "ATTableView"
-  s.version      = "1.2"
+  s.version      = "3.0.0"
   s.summary      = "A lazy way for smart developers to deal with UITableView."
 
   s.description  = <<-DESC
@@ -15,12 +15,12 @@ Pod::Spec.new do |s|
 
   s.license      = "MIT"
 
-  s.author             = { "Tuan Phung" => "tuanphunglk@gmail.com" }
-  s.social_media_url   = "https://github.com/tuanphung"
+  s.author             = { "Tuan Phung" => "nghiaphunguyen501@gmail.com" }
+  s.social_media_url   = "https://github.com/nghiaphunguyen"
 
   s.platform     = :ios, "8.0"
 
-  s.source       = { :git => "https://github.com/tuanphung/ATTableView.git", :tag => s.version }
+  s.source       = { :git => "https://github.com/nghiaphunguyen/ATTableView.git", :tag => s.version }
   s.source_files  = "Source/*.swift"
 
   s.requires_arc = true

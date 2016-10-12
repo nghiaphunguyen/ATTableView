@@ -28,7 +28,7 @@ public class ATTableViewSection {
     public var headerTitle: String? {
         didSet {
             // Set default header height in case title != nil and headerHeight is not set.
-            if let title = self.headerTitle where title != "" && self.headerHeight == 0 {
+            if let title = self.headerTitle , title != "" && self.headerHeight == 0 {
                 self.headerHeight = DefaultHeaderHeight
             }
         }
@@ -40,7 +40,7 @@ public class ATTableViewSection {
     public var footerTitle: String? {
         didSet {
             // Set default footer height in case title != nil and footerHeight is not set.
-            if let title = self.footerTitle where title != "" && self.footerHeight == 0 {
+            if let title = self.footerTitle , title != "" && self.footerHeight == 0 {
                 self.footerHeight = DefaultFooterHeight
             }
         }
