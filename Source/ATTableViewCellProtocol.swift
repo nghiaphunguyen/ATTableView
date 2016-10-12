@@ -60,12 +60,12 @@ public extension ATTableViewCellProtocol {
 public extension UITableViewCell {
     public func fireSignal(identifier: String, associatedObject: Any?) {
         var view = self.superview
-        while (view != nil && view!.isKindOfClass(ATTableView.self) == false) {
+        while (view != nil && view!.isKind(of: ATTableView.self) == false) {
             view = view?.superview
         }
 
         if let tableView = view as? ATTableView {
-            tableView.fireSignal(ATSignal(identifider: identifier, associatedObject: associatedObject))
+            tableView.fireSignal(signal: ATSignal(identifider: identifier, associatedObject: associatedObject))
         }
     }
 }

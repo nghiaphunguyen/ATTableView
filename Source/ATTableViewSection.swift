@@ -72,7 +72,7 @@ public class ATTableViewSection {
     func addItems(newItems: [Any]?) {
         guard let newItems = newItems else { return }
         
-        self.items.appendContentsOf(newItems)
+        self.items.append(contentsOf: newItems)
     }
     
     func clear() {

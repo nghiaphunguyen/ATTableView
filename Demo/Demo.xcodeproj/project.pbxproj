@@ -249,6 +249,7 @@
 					8204B1501B9AD5B1005B658F = {
 						CreatedOnToolsVersion = 7.0;
 						DevelopmentTeam = YCDYG6QC73;
+						LastSwiftMigration = 0800;
 					};
 					8204B1641B9AD5B1005B658F = {
 						CreatedOnToolsVersion = 7.0;
@@ -518,6 +519,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tuanphung.Debug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -531,6 +533,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tuanphung.Debug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
