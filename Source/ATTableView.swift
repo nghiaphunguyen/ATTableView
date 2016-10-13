@@ -25,26 +25,26 @@ var UITableLoadingViewKey = "UITableLoadingViewKey"
 
 typealias Mapping = (heightBlock:((_ model: Any) -> CGFloat), configureCellBlock: (_ cell: UITableViewCell, _ model: Any) -> (), identifier: String, modelType: Any.Type)
 
-public class ATTableViewDelegateConfiguration {
-    public var scrollViewDidScroll: ((_ scrollView: UIScrollView) -> ())?
+open class ATTableViewDelegateConfiguration {
+    open var scrollViewDidScroll: ((_ scrollView: UIScrollView) -> ())?
 }
 
-public class ATTableView: UITableView {
-    public var defaultSection = ATTableViewSection()
+open class ATTableView: UITableView {
+    open var defaultSection = ATTableViewSection()
     
-    public var delegateConfiguration = ATTableViewDelegateConfiguration()
+    open var delegateConfiguration = ATTableViewDelegateConfiguration()
     
-    public var onDidSelectItem: ((_ item: Any) -> ())?
+    open var onDidSelectItem: ((_ item: Any) -> ())?
     
     // Abstract the way to implement LoadMore feature.
     // Under implementation.
-    public var shouldLoadMore: Bool = false
+    open var shouldLoadMore: Bool = false
     private var isLoadingMore = false
-    public var onLoadMore: (() -> ())?
+    open var onLoadMore: (() -> ())?
     
     private var signalMonitorHandler: ((_ signal: ATSignal) -> ())?
     
-    public func loadDataCompletedWithItems(items: [Any]) {
+    open func loadDataCompletedWithItems(items: [Any]) {
         self.shouldLoadMore = (items.count == 0) ? false : true
         self.addItems(items: items)
         
@@ -69,10 +69,10 @@ public class ATTableView: UITableView {
     }
     
     // MARK: - Loading View
-    public var loadingView: UIView?
-    public var centerOffset = CGPoint.zero
+    open var loadingView: UIView?
+    open var centerOffset = CGPoint.zero
     
-    public func showLoadingIndicator(centerOffset: CGPoint = CGPoint.zero
+    open func showLoadingIndicator(centerOffset: CGPoint = CGPoint.zero
         ) {
         self.centerOffset = centerOffset
         
@@ -86,11 +86,11 @@ public class ATTableView: UITableView {
         }
     }
     
-    public func hideLoadingIndicator() {
+    open func hideLoadingIndicator() {
         self.loadingView?.isHidden = true
     }
     
-    public override func layoutSubviews() {
+    open override func layoutSubviews() {
         super.layoutSubviews()
         
         self.adjustSizeOfLoadingIndicator()
@@ -104,7 +104,8 @@ public class ATTableView: UITableView {
     }
     
     // Initializers
-    public override init(frame: CGRect, style: UITableViewStyle) {
+    public
+    override init(frame: CGRect, style: UITableViewStyle) {
         super.init(frame: frame, style: style)
         
         self.initialize()
@@ -116,7 +117,7 @@ public class ATTableView: UITableView {
         self.initialize()
     }
     
-    public func initialize() {
+    open func initialize() {
         self.dataSource = self
         self.delegate = self
         self.scrollsToTop = false
@@ -125,18 +126,18 @@ public class ATTableView: UITableView {
         self.source.append(defaultSection)
     }
     
-    public func addSection(section: ATTableViewSection, atIndex index: Int) {
+    open func addSection(section: ATTableViewSection, atIndex index: Int) {
         self.source.insert(section, at: index)
     }
     
-    public func addSection(section: ATTableViewSection) {
+    open func addSection(section: ATTableViewSection) {
         self.source.append(section)
         
         // Render data
         self.reloadData()
     }
     
-    public func addItems(items: [Any], section: Int) {
+    open func addItems(items: [Any], section: Int) {
         let sectionData = self.source[section]
         sectionData.addItems(newItems: items)
         
@@ -144,17 +145,17 @@ public class ATTableView: UITableView {
         self.reloadData()
     }
     
-    public func addItems(items: [Any]) {
+    open func addItems(items: [Any]) {
         self.addItems(items: items, section: 0)
     }
     
     // To fix issue `array cannot be bridged from Objective-C` when push array of AnyObject.
     // https://forums.developer.apple.com/thread/28678
-    public func addObjects(objects: [AnyObject]) {
+    open func addObjects(objects: [AnyObject]) {
         self.addObjects(objects: objects, section: 0)
     }
     
-    public func addObjects(objects: [AnyObject], section: Int) {
+    open func addObjects(objects: [AnyObject], section: Int) {
         let section = self.source[section]
         section.addItems(newItems: objects.map { $0 as AnyObject })
         
@@ -163,7 +164,7 @@ public class ATTableView: UITableView {
     }
     
     // Register cell, setup some code blocks and store them to execute later.
-    public func register<T: ATTableViewCellProtocol>(cellType: T.Type) {
+    open func register<T: ATTableViewCellProtocol>(cellType: T.Type) {
         let identifier = cellType.reuseIdentifier()
         
         guard let _ = self.dequeueReusableCell(withIdentifier: identifier) else {
@@ -196,7 +197,7 @@ public class ATTableView: UITableView {
         }
     }
     
-    public func clearAll() {
+    open func clearAll() {
         for section in self.source {
             section.clear()
         }
@@ -204,18 +205,18 @@ public class ATTableView: UITableView {
         self.reloadData()
     }
     
-    public func clearItemsAtSection(section: Int) {
+    open func clearItemsAtSection(section: Int) {
         self.source[section].clear()
         
         self.reloadData()
     }
     
-    public override func reloadData() {
+    open override func reloadData() {
         
         super.reloadData()
     }
     
-    public func startMonitorSignal(handler: @escaping (_ signal: ATSignal) -> ()) {
+    open func startMonitorSignal(handler: @escaping (_ signal: ATSignal) -> ()) {
         self.signalMonitorHandler = handler
     }
     
@@ -226,26 +227,26 @@ public class ATTableView: UITableView {
 
 extension ATTableView: UITableViewDataSource {
     // Configure sections
-    public func numberOfSections(in tableView: UITableView) -> Int {
+    open func numberOfSections(in tableView: UITableView) -> Int {
         return self.source.count
     }
     
     // Configure header for section
-    public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    open func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return self.source[section].headerTitle
     }
     
     // Configure footer for section
-    public func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+    open func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         return self.source[section].footerTitle
     }
     
     // Configure cells
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.source[section].items.count
     }
     
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let model: Any = self.source[indexPath.section].items[indexPath.row]
         
         if let mapping = self.mappingForModel(model: model) {
@@ -261,31 +262,31 @@ extension ATTableView: UITableViewDataSource {
 
 extension ATTableView: UITableViewDelegate {
     // Customize Section Header
-    public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    open func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return self.source[section].customHeaderView?()
     }
     
-    public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    open func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return self.source[section].headerHeight
     }
     
     // Customize Section Footer
-    public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+    open func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return self.source[section].customFooterView?()
     }
     
-    public func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    open func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return self.source[section].footerHeight
     }
     
     // Handle actions
-    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
         self.onDidSelectItem?(item: self.source[indexPath.section].items[indexPath.row])
     }
     
-    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    open func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let model: Any = self.source[indexPath.section].items[indexPath.row]
         
         if let mapping = self.mappingForModel(model: model) {

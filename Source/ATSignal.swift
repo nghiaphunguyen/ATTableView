@@ -8,9 +8,9 @@
 
 import Foundation
 
-public class ATSignal {
-    public var identifier: String
-    public var associatedObject: Any?
+open class ATSignal {
+    open var identifier: String
+    open var associatedObject: Any?
     
     init(identifider: String, associatedObject: Any?) {
         self.identifier = identifider

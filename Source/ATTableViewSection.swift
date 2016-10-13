@@ -21,11 +21,11 @@
 
 import UIKit
 
-public class ATTableViewSection {
+open class ATTableViewSection {
     let DefaultHeaderHeight: CGFloat = 22
     let DefaultFooterHeight: CGFloat = 22
     
-    public var headerTitle: String? {
+    open var headerTitle: String? {
         didSet {
             // Set default header height in case title != nil and headerHeight is not set.
             if let title = self.headerTitle , title != "" && self.headerHeight == 0 {
@@ -34,10 +34,10 @@ public class ATTableViewSection {
         }
     }
     
-    public var headerHeight: CGFloat = 0.0
-    public var customHeaderView: (() -> UIView?)?
+    open var headerHeight: CGFloat = 0.0
+    open var customHeaderView: (() -> UIView?)?
     
-    public var footerTitle: String? {
+    open var footerTitle: String? {
         didSet {
             // Set default footer height in case title != nil and footerHeight is not set.
             if let title = self.footerTitle , title != "" && self.footerHeight == 0 {
@@ -46,8 +46,8 @@ public class ATTableViewSection {
         }
     }
         
-    public var footerHeight: CGFloat = 0.0
-    public var customFooterView: (() -> UIView?)?
+    open var footerHeight: CGFloat = 0.0
+    open var customFooterView: (() -> UIView?)?
     
     var items: [Any]
     
@@ -65,7 +65,7 @@ public class ATTableViewSection {
         self.init(headerTitle: nil, footerTitle: nil, items: items)
     }
     
-    public func getItems() -> [Any] {
+    open func getItems() -> [Any] {
         return self.items
     }
     
